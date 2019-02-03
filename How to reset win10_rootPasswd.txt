@@ -1,0 +1,148 @@
+**********************************************
+////How to Reset Windows10 Root Passwd////
+**********************************************
+
+
+Written By Andre Merten
+
+////This tutorial is strictly made for educational purposes DO NOT use this to gain access to computers you are not permitted to, as that is extremley illegal. DO NOT use this guide for malicious activities
+Please follow this guide at your own risk. I do not take any responsibility for any changes that make your computer inoperable. YOU HAVE BEEN WARNED!!!!
+########################################################################################################################################################################################################
+
+1. Reboot the machine, when prompted to "press any key to boot from cd", do so.
+----> You will then be directed to a windows setup window as if you were to install a new Win10 OS
+-----> At this point hold the "shift" key and press 'F10', this will bring you to a command prompt window.
+
+----> The prompt should open with X:\Sources>
+
+2. Now we need to find out what drive actually holds the windows OS. By default, this should be on the 'C:' drive, however depending on where you installed it, this can differ. 
+In this case I'm using a virtual machine to run my windows10 instance so it will not be on the 'C:' Mine will be on the "D:" drive.
+
+FIRST TRY: ------> Change to the "C" drive ------> type: c: , press enter
+-----> the command prompt should now show : C:\>
+------>Next type: dir, press enter.
+
+*** If you get a "File Not Found" error then windows is not on this drive., Next try drive letter 'D:' by changing into it.****
+
+D:\>
+-----> again type 'dir' you should get a list of directories, one of them being 'windows'----> This is what we are looking for. 
+-----> Go ahead and change into the windows dir by typing: cd windows, press enter. 
+
+------>Once in the windows dir; list out the contents by typing 'dir' look for 'System32' -----> cd into System32
+
+So what are we going to do?
+-------> Rename the "utilman.exe" file to something new(e.g utilman2.exe). ----> The utilman.exe file is what allows the 'ease of access menu' to appear on the splash 
+screen where you enter your password. We are renaming this file to become a temporay command prompt as opposed to the intended 'ease of access menu'.
+
+
+****RENAMING THE FILES*******
+-----> First change directories into D:\Windows\System32>
+
+------> Within the D:\Windows\System32> type:  ------> "ren utilman.exe utilman2.exe" -------> This is simply renaming the orginal utilman.exe file to a new utilman2.exe file.
+
+4. Copy the 'cmd.exe' to utilman.exe ----> This creates the the cmd.exe to now be called instead of the utilman.exe which is now utilman2.exe
+
+Run this : copy cmd.exe utilman.exe
+-----> you should see output: "1 file(s) copied"
+
+**********************************************
+Current values:
+
+            utilman.exe =======>> cmd.exe
+	    utilman2.exe ======>> utilman.exe
+**********************************************
+
+5. Close the command prompt and cancel the installation by clicking the red "x". When prompted to cancel select "yes" to restart the PC or Virtual Machine.
+
+
+----> After the restart, on the splash screen click the screen so you are prompted to enter a password. 
+----> There will be 3 icons located on the lower right hand corner of the screen. 
+----> Hover your mouse over these icons. Starting from left to right you should see: "Internet" "Ease of Access" and "Power"
+
+------> click on the "Ease of Access" icon to open the command propmt we just set it to.
+
+*****NOTE**** DO NOT AT ANY POINT CLOSE THE COMMAND PROMPT WINDOW, DOING SO WILL RENDER YOUR SYSTEM AND YOU WILL NO LONGER HAVE ACCESS TO THE CONTINUED STEPS.******
+
+***************************************************
+
+The command prompt window should be "C
+
+6. Within our 'Ease of Access' command prompt ------> type: control userpasswords2
+
+------> This will open our user accounts window for managing various things among the users on this computer.
+
+7. Select the user in which you wish to reset the password, in this case it will be the Administrator, then click 'Reset Password' 
+
+-----> type in the NEW password twice and then click ok.
+
+------> Close the user accounts window and type in your new password to login. ------> AND BOOOOOM! you're in!! However, you are not done. We must revert the files back 
+to their orginal state before we celebrate.
+
+Before we can rename the files to their correct name and state we will have to change some file permissions. Right now the directory we need access to is 
+owned under "TrustedInstaller" which is Microsoft. It is done this way so people do not inadvertenly change or modify certain files that can ruin your computer. 
+We will be adding ourselves to the access list in order to modify the files.
+
+*****CHANGING THE APPROPRIATE FILE PERMISSIONS*****
+
+
+8. Open the file explorer, click on 'this PC'
+----->click on 'Local Disk'(C:) drive
+
+----->click on 'windows'------> find 'System32', Right-click and select properties.
+
+----->Click on the SECURTIY TAB and select 'Advanced'
+
+------> up near the top of the window you should see "Owner" which in its current state is 'TrustedInstaller' Click the 'Change' link next to the blue and orange shield icon.
+
+This will open the "Select User or Group" window.
+------> click on 'Advanced' then onn click 'Find Now'
+
+Within the 'Search Results' scroll down to the very bottom until you find 'Users' under the "name" column-----> go ahead and double click this. 
+click OK, then 'Apply' and again 'OK'
+
+*** If you now notice within the "Advanced Security Settings for System32" windowm up near the top "Owner" is now "Users" and NO LONGER 'TrustedInstaller"
+
+
+Now within the 'System32 Properties window  ------> inside of the "Group or user names" scroll window, find and select 'users' and click 'Edit' 
+
+This will open "Permissions for System32" window
+
+-----> Make sure 'Users' is selected
+
+-----> Now check "Full Control" and "Modify" under the "Allow" column. After checking these two boxes click apply then OK.
+
+-----> Agree to the file permission changes
+
+-----> At this point you will get an error message, go ahead and select cancel. Close all the open dialog windows.
+
+
+Now reopen the file explorer navigate back to the System32 directory. In the 'Search System32 search bar located in the top right hand corner of the window, 
+-----> type in utilman
+
+Right-Click on 'utilman' and delete ( this is deleting our cmd.exe file). If you encounter an error with deleting this file just select 'skip' then close the file explorer.
+
+Navigate back to C:\Windows\System32 -----> again search for "utilman2", at this point it should just return 1 result (utilman2)
+
+----- >Finally select utilman2 right-click and rename -----> now just delete the appended '2' (utilman) and save the file thus, renaming it back to it's orginal name and state.
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
